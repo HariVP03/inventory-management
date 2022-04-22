@@ -13,7 +13,8 @@ import { FiChevronDown } from "react-icons/fi";
 const PendingAttendance: React.FC<{
     props?: ButtonProps;
     tooltipText?: string;
-}> = ({ props, tooltipText = "" }) => {
+    edit?: boolean;
+}> = ({ props, tooltipText = "", edit = true }) => {
     return (
         <Tooltip label={tooltipText}>
             <Menu>
@@ -21,10 +22,11 @@ const PendingAttendance: React.FC<{
                     as={Button}
                     bg="yellow.400"
                     _active={{ bg: "yellow.500" }}
-                    rightIcon={<FiChevronDown />}
+                    rightIcon={edit ? <FiChevronDown /> : ""}
                     color="white"
                     transition="all 100ms linear"
                     fontWeight="500"
+                    cursor={edit ? "pointer" : "default"}
                     rounded="sm"
                     _hover={{
                         bg: "yellow.500",
@@ -33,10 +35,14 @@ const PendingAttendance: React.FC<{
                 >
                     Medium
                 </MenuButton>
-                <MenuList>
-                    <MenuItem>Low</MenuItem>
-                    <MenuItem>High</MenuItem>
-                </MenuList>
+                {edit ? (
+                    <MenuList>
+                        <MenuItem>Low</MenuItem>
+                        <MenuItem>High</MenuItem>
+                    </MenuList>
+                ) : (
+                    ""
+                )}
             </Menu>
         </Tooltip>
     );

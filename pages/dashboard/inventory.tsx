@@ -14,6 +14,20 @@ const Inventory: NextPage = () => {
     const data = useMemo<classOverview[]>(
         () => [
             {
+                id: "AH120EH321HE12",
+                name: "ABC Company",
+                date: "5 May 2022",
+                desc: "Order for ABC Company. Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ipsam praesentium similique illo quae vero in. Numquam, quas pariatur. Corrupti fugit commodi dignissimos aspernatur velit hic possimus laboriosam repudiandae autem?",
+                priority: "high",
+            },
+            {
+                id: "D1DJDB921D129",
+                name: "PQR Company",
+                date: "18 May 2022",
+                desc: "Order for XYZ to make PQR items. Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ipsam praesentium similique illo quae vero in. Numquam, quas pariatur. Corrupti fugit commodi dignissimos aspernatur velit hic possimus laboriosam repudiandae autem?",
+                priority: "medium",
+            },
+            {
                 id: "EH19HE80U0U1E0",
                 name: "XYZ Company",
                 date: "18 Feb 2022",
@@ -106,7 +120,7 @@ const Inventory: NextPage = () => {
                                 </FilledOutlineButton>
                             </Flex>
                         </Flex>
-                        <Table data={data} columns={columns} />
+                        <Table modalOnClick data={data} columns={columns} />
                     </Flex>
                 </Sidebar>
             </main>

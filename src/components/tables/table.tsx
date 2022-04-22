@@ -21,8 +21,9 @@ import {
     Thead,
     Tooltip,
     Tr,
+    useDisclosure,
 } from "@chakra-ui/react";
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
 import { useTable } from "react-table";
@@ -33,6 +34,7 @@ import {
     LowPriority,
     MediumPriority,
 } from "@components";
+import TableRowModal from "./tableRowModal";
 
 const TableComp: FC<{
     data: any;
@@ -44,6 +46,8 @@ const TableComp: FC<{
     accordion?: boolean;
     tableDatas?: any;
     tableColumns?: any;
+    editPriorty?: boolean;
+    modalOnClick?: boolean;
 }> = ({
     data,
     columns,
@@ -54,11 +58,13 @@ const TableComp: FC<{
     editButton = true,
     viewButton = true,
     accordion = false,
+    editPriorty = false,
+    modalOnClick = false,
 }) => {
     const statusTableData: any = {
-        low: <LowPriority />,
-        medium: <MediumPriority />,
-        high: <HighPriority />,
+        low: <LowPriority edit={editPriorty} />,
+        medium: <MediumPriority edit={editPriorty} />,
+        high: <HighPriority edit={editPriorty} />,
     };
 
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -107,6 +113,15 @@ const TableComp: FC<{
         });
     };
     let i = -1;
+    const { isOpen, onClose, onOpen } = useDisclosure();
+    // const [name, setName] = useState("");
+    // const [date, setDate] = useState("");
+    // const [desc, setDesc] = useState("");
+    const modalData = useRef({
+        name: "",
+        date: "",
+        desc: "",
+    });
 
     return (
         <Table w="full" variant={variant} {...getTableProps()}>
@@ -141,18 +156,34 @@ const TableComp: FC<{
                     );
                 })}
             </Thead>
-
+            <TableRowModal
+                date={modalData.current.date}
+                desc={modalData.current.desc}
+                name={modalData.current.name}
+                isOpen={isOpen}
+                onClose={onClose}
+            />
             <Tbody {...getTableBodyProps()}>
                 {rows.map((row) => {
                     prepareRow(row);
                     i++;
                     const fi = i;
+                    const temp = row.allCells[fi].row.values;
+                    // console.log(temp.name);
 
                     return (
                         <>
                             <Tr
                                 w="full"
-                                cursor={accordion ? "pointer" : "auto"}
+                                // Here123
+
+                                cursor={
+                                    accordion
+                                        ? "pointer"
+                                        : modalOnClick
+                                        ? "pointer"
+                                        : "auto"
+                                }
                                 transition="background-color 100ms linear"
                                 _hover={
                                     accordion ? { bg: "rgb(0,0,0,0.04)" } : {}
@@ -162,7 +193,15 @@ const TableComp: FC<{
                                         ? () => {
                                               toggleAccordion(fi);
                                           }
-                                        : undefined
+                                        : () => {
+                                              modalData.current.date =
+                                                  temp.date;
+                                              modalData.current.name =
+                                                  temp.name;
+                                              modalData.current.desc =
+                                                  temp.desc;
+                                              onOpen();
+                                          }
                                 }
                                 {...row.getRowProps()}
                             >
@@ -201,7 +240,7 @@ const TableComp: FC<{
                                                         ? cell?.value
                                                         : ""
                                                 }
-                                                noOfLines={5}
+                                                noOfLines={2}
                                             >
                                                 <Td
                                                     maxW="200px"

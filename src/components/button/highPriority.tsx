@@ -13,18 +13,20 @@ import { FiChevronDown } from "react-icons/fi";
 const TrackingAttendance: React.FC<{
     props?: ButtonProps;
     tooltipText?: string;
-}> = ({ props, tooltipText = "" }) => {
+    edit?: boolean;
+}> = ({ props, tooltipText = "", edit = true }) => {
     return (
         <Tooltip label={tooltipText}>
             <Menu>
                 <MenuButton
                     as={Button}
                     bg="red.500"
-                    rightIcon={<FiChevronDown />}
+                    rightIcon={edit ? <FiChevronDown /> : ""}
                     color="white"
                     transition="all 100ms linear"
                     fontWeight="500"
                     _active={{ bg: "red.600" }}
+                    cursor={edit ? "pointer" : "default"}
                     rounded="sm"
                     _hover={{
                         bg: "red.600",
@@ -33,10 +35,14 @@ const TrackingAttendance: React.FC<{
                 >
                     High
                 </MenuButton>
-                <MenuList>
-                    <MenuItem>Low</MenuItem>
-                    <MenuItem>Medium</MenuItem>
-                </MenuList>
+                {edit ? (
+                    <MenuList>
+                        <MenuItem>Low</MenuItem>
+                        <MenuItem>Medium</MenuItem>
+                    </MenuList>
+                ) : (
+                    ""
+                )}
             </Menu>
         </Tooltip>
     );
