@@ -74,12 +74,12 @@ const Inventory: NextPage = () => {
             active: router.pathname === "/dashboard/inventory",
             link: "/dashboard/inventory",
         },
-        {
-            name: "Administration",
-            icon: BsPeople,
-            link: "/dashboard/administration",
-            active: router.pathname === "/dashboard/administration",
-        },
+        // {
+        //     name: "Administration",
+        //     icon: BsPeople,
+        //     link: "/dashboard/administration",
+        //     active: router.pathname === "/dashboard/administration",
+        // },
     ];
     return (
         <>

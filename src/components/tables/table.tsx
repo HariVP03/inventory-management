@@ -134,6 +134,7 @@ const TableComp: FC<{
                                     <Checkbox
                                         isChecked={checkedHeader}
                                         onChange={(e) => {
+                                            e.stopPropagation();
                                             if (e.target.checked) {
                                                 checkAll();
                                             } else {
@@ -168,7 +169,7 @@ const TableComp: FC<{
                     prepareRow(row);
                     i++;
                     const fi = i;
-                    const temp = row.allCells[fi].row.values;
+                    const temp = row.allCells[fi]?.row.values;
                     // console.log(temp.name);
 
                     return (
@@ -193,14 +194,17 @@ const TableComp: FC<{
                                         ? () => {
                                               toggleAccordion(fi);
                                           }
-                                        : () => {
-                                              modalData.current.date =
-                                                  temp.date;
-                                              modalData.current.name =
-                                                  temp.name;
-                                              modalData.current.desc =
-                                                  temp.desc;
-                                              onOpen();
+                                        : (e) => {
+                                              if (this === e.target) {
+                                                  //   e.stopPropagation();
+                                                  modalData.current.date =
+                                                      temp.date;
+                                                  modalData.current.name =
+                                                      temp.name;
+                                                  modalData.current.desc =
+                                                      temp.desc;
+                                                  onOpen();
+                                              }
                                           }
                                 }
                                 {...row.getRowProps()}
@@ -212,6 +216,7 @@ const TableComp: FC<{
                                             onChange={(e) => {
                                                 const f = e.target.checked;
                                                 checkBox(fi, f);
+                                                // e.stopPropagation();
                                             }}
                                             size="lg"
                                             colorScheme="green"
