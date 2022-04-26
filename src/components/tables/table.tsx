@@ -135,11 +135,11 @@ const TableComp: FC<{
                                         isChecked={checkedHeader}
                                         onChange={(e) => {
                                             e.stopPropagation();
-                                            if (e.target.checked) {
-                                                checkAll();
-                                            } else {
-                                                uncheckAll();
-                                            }
+                                            // if (e.target.checked) {
+                                            checkAll();
+                                            // } else {
+                                            //     uncheckAll();
+                                            // }
                                         }}
                                         size="lg"
                                         colorScheme="green"
@@ -194,18 +194,7 @@ const TableComp: FC<{
                                         ? () => {
                                               toggleAccordion(fi);
                                           }
-                                        : (e) => {
-                                              if (this === e.target) {
-                                                  //   e.stopPropagation();
-                                                  modalData.current.date =
-                                                      temp.date;
-                                                  modalData.current.name =
-                                                      temp.name;
-                                                  modalData.current.desc =
-                                                      temp.desc;
-                                                  onOpen();
-                                              }
-                                          }
+                                        : undefined
                                 }
                                 {...row.getRowProps()}
                             >
@@ -292,6 +281,19 @@ const TableComp: FC<{
                                             ml={4}
                                             cursor="pointer"
                                             as={GrView}
+                                            onClick={(e) => {
+                                                //   if (this === e.target) {
+                                                e.stopPropagation();
+                                                e.preventDefault();
+                                                modalData.current.date =
+                                                    temp.date;
+                                                modalData.current.name =
+                                                    temp.name;
+                                                modalData.current.desc =
+                                                    temp.desc;
+                                                onOpen();
+                                                //   }
+                                            }}
                                         />
                                     </Td>
                                 ) : editButton ? (

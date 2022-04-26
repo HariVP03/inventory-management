@@ -1,7 +1,7 @@
 import React from "react";
 import { chakra, Flex, Image, Text } from "@chakra-ui/react";
 
-const PinnedMessage: React.FC<{
+const MessageCard: React.FC<{
     title: string;
     desc: string;
     by: string;
@@ -49,4 +49,4 @@ const PinnedMessage: React.FC<{
     );
 };
 
-export default PinnedMessage;
+export default MessageCard;

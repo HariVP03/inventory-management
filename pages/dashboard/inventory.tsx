@@ -1,5 +1,5 @@
 import { chakra, Flex } from "@chakra-ui/react";
-import { PinnedMessage, GhostButton, Sidebar, Table } from "@components";
+import { GhostButton, Sidebar, Table, MessageCard } from "@components";
 import { FilledOutlineButton } from "@components";
 import { NextPage } from "next";
 import Head from "next/head";
@@ -66,31 +66,31 @@ const Inventory: NextPage = () => {
         [],
     );
     const router = useRouter();
-    const LinkItems: Array<LinkItemProps> = [
-        { name: "Dashboard", icon: FiHome, link: "/dashboard" },
-        {
-            name: "View Inventory",
-            icon: BsFileEarmarkSpreadsheet,
-            active: router.pathname === "/dashboard/inventory",
-            link: "/dashboard/inventory",
-        },
-        // {
-        //     name: "Administration",
-        //     icon: BsPeople,
-        //     link: "/dashboard/administration",
-        //     active: router.pathname === "/dashboard/administration",
-        // },
-    ];
+    // const LinkItems: Array<LinkItemProps> = [
+    //     { name: "Dashboard", icon: FiHome, link: "/dashboard" },
+    //     {
+    //         name: "View Inventory",
+    //         icon: BsFileEarmarkSpreadsheet,
+    //         active: router.pathname === "/dashboard/inventory",
+    //         link: "/dashboard/inventory",
+    //     },
+    // {
+    //     name: "Administration",
+    //     icon: BsPeople,
+    //     link: "/dashboard/administration",
+    //     active: router.pathname === "/dashboard/administration",
+    // },
+    // ];
     return (
         <>
             <Head>
                 <title>Dashboard | Inventory</title>
             </Head>
             <main>
-                <Sidebar linkItems={LinkItems}>
+                <Sidebar>
                     <Flex w="full" h="full" direction="column">
                         <Flex mb={8}>
-                            <PinnedMessage
+                            <MessageCard
                                 title="Pinned Message"
                                 desc="ABC Company task top priority get it done before 24th April"
                                 by="Manoj Chaudhary"

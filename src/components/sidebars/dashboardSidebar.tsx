@@ -23,19 +23,35 @@ import {
     MenuList,
     Button,
 } from "@chakra-ui/react";
-import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiBell, FiChevronDown, FiHome } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 import { LinkItemProps } from "@types";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
+import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 
 const Logo = "Chuchi CMS";
 
 export const Sidebar: React.FC<{
     children: ReactNode;
-    linkItems: Array<LinkItemProps>;
-}> = ({ children, linkItems }) => {
+    // linkItems: Array<LinkItemProps>;
+}> = ({ children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const router = useRouter();
+    const linkItems: Array<LinkItemProps> = [
+        {
+            name: "Dashboard",
+            icon: FiHome,
+            link: "/dashboard",
+            active: router.pathname === "/dashboard",
+        },
+        {
+            name: "View Inventory",
+            icon: BsFileEarmarkSpreadsheet,
+            active: router.pathname === "/dashboard/inventory",
+            link: "/dashboard/inventory",
+        },
+    ];
     return (
         <Box minH="100vh" bg={useColorModeValue("white", "gray.900")}>
             <SidebarContent
